@@ -1,0 +1,25 @@
+
+// Use this line to delete the second author line:
+// document.querySelectorAll('.starter')[1].parentNode.removeChild(document.querySelectorAll('.starter')[1])
+@Starter(Author)
+DistributedJournal.submitPaper {
+  Editor.submitPaper {
+    DistributedJournal.accepted 
+    if(is_not_accepted) {
+      Author.editorialReject
+    } else {
+    Reviewer.assign {
+      DistributedJournal.is_accepted 
+      if (is_accepted) {
+        DistributedJournal.submitReview
+      }
+    }
+    if (is_accepted){
+      DistributedJournal.rateReview {
+        Author._ {
+          DistributedJournal.rateReview
+        }
+      }
+    }
+  }
+}
